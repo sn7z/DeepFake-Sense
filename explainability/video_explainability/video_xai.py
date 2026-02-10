@@ -5,7 +5,7 @@ from tensorflow import keras
 from tensorflow.keras import layers
 from tensorflow.keras.applications.xception import preprocess_input
 from mtcnn import MTCNN
-from .grad_cam import generate_gradcam, overlay_gradcam
+from ..grad_cam import generate_gradcam, overlay_gradcam
 
 # -----------------------------
 # CONFIG

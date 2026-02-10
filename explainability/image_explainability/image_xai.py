@@ -2,7 +2,7 @@ import tensorflow as tf
 import numpy as np
 import cv2
 import matplotlib.pyplot as plt
-from .grad_cam import generate_gradcam, overlay_gradcam
+from ..grad_cam import generate_gradcam, overlay_gradcam
 
 
 def load_image_model():
