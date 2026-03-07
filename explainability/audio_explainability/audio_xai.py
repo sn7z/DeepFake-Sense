@@ -1,7 +1,12 @@
 import librosa
 import numpy as np
 import plotly.graph_objects as go
+import tempfile
 
+def save_fig(fig):
+    temp = tempfile.NamedTemporaryFile(suffix=".png", delete=False)
+    fig.write_image(temp.name)
+    return temp.name
 
 def load_audio(audio_path, sr=16000):
     audio, sr = librosa.load(audio_path, sr=sr)
@@ -117,13 +122,19 @@ def explain_audio(audio_path):
     fig_sc, sc = plot_spectral_centroid_plotly(audio, sr)
     fig_zcr, zcr = plot_zcr_plotly(audio, sr)
 
+    mfcc_img = save_fig(fig_mfcc)
+    sc_img = save_fig(fig_sc)
+    zcr_img = save_fig(fig_zcr)
+
     return {
         "waveform_fig": fig_waveform,
         "mfcc_fig": fig_mfcc,
         "spectral_centroid_fig": fig_sc,
         "zcr_fig": fig_zcr,
-        # "mfcc": mfcc,
-        # "spectral_centroid": sc,
-        # "zcr": zcr
+
+        # images for LLM
+        "mfcc_img": mfcc_img,
+        "spectral_img": sc_img,
+        "zcr_img": zcr_img
     }
 
