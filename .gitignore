@@ -211,4 +211,7 @@ __marimo__/
 training/
 data/
 models/
+models/audio_models
+models/image_models
+models/video_models
 app_improved.py
