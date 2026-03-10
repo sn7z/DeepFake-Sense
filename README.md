@@ -27,10 +27,10 @@ All results are passed to a **Gemini LLM** which synthesises the prediction, con
 ## System Architecture
 
 ```
-┌─────────────────────────────────────────────────────────┐
-│                    Streamlit Frontend                   │
-│         (Image / Audio / Video tab interface)           │
-└──────────────────────────────┬──────────────────────────┘
+ ┌─────────────────────────────────────────────────────────┐
+ │                    Streamlit Frontend                   │
+ │         (Image / Audio / Video tab interface)           │
+ └─────────────────────────────┬───────────────────────────┘
                                │
                ┌───────────────┼───────────────┐
                ▼               ▼               ▼
