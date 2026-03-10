@@ -28,39 +28,39 @@ All results are passed to a **Gemini LLM** which synthesises the prediction, con
 
 ```
 ┌─────────────────────────────────────────────────────────┐
-│                    Streamlit Frontend                    │
+│                    Streamlit Frontend                   │
 │         (Image / Audio / Video tab interface)           │
-└────────────────────────┬────────────────────────────────┘
-                         │
-         ┌───────────────┼───────────────┐
-         ▼               ▼               ▼
-   ┌───────────┐  ┌───────────┐  ┌───────────┐
-   │  backend/ │  │  backend/ │  │  backend/ │
-   │  image.py │  │  audio.py │  │  video.py │
-   └─────┬─────┘  └─────┬─────┘  └─────┬─────┘
-         │               │               │
-         ▼               ▼               ▼
-   XceptionNet      CNN+BiLSTM     XceptionNet
-   (Keras .keras)   (Keras .h5)    + LSTM (.keras)
-         │               │               │
-         └───────────────┼───────────────┘
-                         │
-         ┌───────────────┼───────────────┐
-         ▼               ▼               ▼
-   ┌───────────┐  ┌───────────┐  ┌───────────┐
-   │ Grad-CAM  │  │  Spectral │  │ Grad-CAM  │
-   │ (Image)   │  │  XAI      │  │ (Frames)  │
-   └─────┬─────┘  └─────┬─────┘  └─────┬─────┘
-         │               │               │
-         └───────────────┼───────────────┘
-                         ▼
-               ┌──────────────────┐
-               │  Gemini LLM API  │
-               │  (llm_explainer) │
-               └────────┬─────────┘
-                        ▼
-               Plain-language forensic
-               explanation rendered in UI
+└──────────────────────────────┬──────────────────────────┘
+                               │
+               ┌───────────────┼───────────────┐
+               ▼               ▼               ▼
+         ┌───────────┐  ┌───────────┐  ┌───────────┐
+         │  backend/ │  │  backend/ │  │  backend/ │
+         │  image.py │  │  audio.py │  │  video.py │
+         └─────┬─────┘  └─────┬─────┘  └─────┬─────┘
+               │               │               │
+               ▼               ▼               ▼
+         XceptionNet      CNN+BiLSTM     XceptionNet
+         (Keras .keras)   (Keras .h5)    + LSTM (.keras)
+               │               │               │
+               └───────────────┼───────────────┘
+                              │
+               ┌───────────────┼───────────────┐
+               ▼               ▼               ▼
+         ┌───────────┐  ┌───────────┐  ┌───────────┐
+         │ Grad-CAM  │  │  Spectral │  │ Grad-CAM  │
+         │ (Image)   │  │  XAI      │  │ (Frames)  │
+         └─────┬─────┘  └─────┬─────┘  └─────┬─────┘
+               │               │               │
+               └───────────────┼───────────────┘
+                              ▼
+                     ┌──────────────────┐
+                     │  Gemini LLM API  │
+                     │  (llm_explainer) │
+                     └────────┬─────────┘
+                              ▼
+                     Plain-language forensic
+                     explanation rendered in UI
 ```
 
 ---
@@ -239,22 +239,6 @@ venv\Scripts\activate           # Windows
 pip install -r requirements.txt
 ```
 
-Key dependencies include:
-
-```
-streamlit
-tensorflow
-keras
-librosa
-opencv-python
-mtcnn
-plotly
-matplotlib
-google-genai
-numpy
-pillow
-```
-
 ### 4. Set Environment Variables
 
 ```bash
@@ -272,13 +256,8 @@ models/audio_models/my_model.h5
 models/video_models/XceptionNet.keras
 ```
 
-### 6. Create the Cache Directory
-
-```bash
-mkdir cache
-```
-
-### 7. Run the App
+### 6. Run the App
+## Double Click the "run.bat" file to start the app, or run:
 
 ```bash
 streamlit run app.py
