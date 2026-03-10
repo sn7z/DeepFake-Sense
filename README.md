@@ -13,8 +13,8 @@ DeepSense is a multi-modal deepfake detection system designed to identify manipu
 To set up the DeepSense project, follow the steps below:
 1. Clone the repository:
    ```sh
-   git clone https://github.com/sn7z/DeepFake-Sense.git
-   cd DeepFake-Sense
+   git clone https://github.com/sn7z/DeepSense.git
+   cd DeepSense
    ```
 2. Install the required packages:
    ```sh

@@ -7,7 +7,7 @@ from backend.llm_explainer import explain_with_llm
 # PAGE CONFIG (modern look)
 # -----------------------------
 st.set_page_config(
-    page_title="DeepFake-Sense",
+    page_title="DeepSense",
     page_icon="🧠",
     layout="wide"
 )
@@ -235,4 +235,4 @@ with tab_video:
 # FOOTER
 # ==========================================================
 st.markdown("---")
-st.caption("© DeepFake-Sense | Explainable AI for Multimedia Deepfake Detection")
+st.caption("© DeepSense | Explainable AI for Multimedia Deepfake Detection")
