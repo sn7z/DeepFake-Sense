@@ -11,7 +11,7 @@ from tensorflow.keras.applications.xception import preprocess_input
 TIME_STEPS = 30
 HEIGHT = 299
 WIDTH = 299
-MODEL_PATH = "models/video_models/XceptionNet.keras"
+MODEL_PATH = "models/video_models/video_deepfake_model.keras"
 
 detector = MTCNN()
 

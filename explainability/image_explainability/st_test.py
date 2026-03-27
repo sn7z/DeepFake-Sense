@@ -9,7 +9,7 @@ st.subheader("Image Explainability (Grad-CAM)")
 
 @st.cache_resource
 def load_image_model():
-    return tf.keras.models.load_model("../../models/image_models/xception_deepfake_model.keras")
+    return tf.keras.models.load_model("../../models/image_models/image_deepfake_model.keras")
 
 image_model = load_image_model()
 

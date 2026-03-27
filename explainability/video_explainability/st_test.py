@@ -3,7 +3,7 @@ from video_xai import explain_video, build_model
 
 st.subheader("Video Explainability (Key Frames)")
 
-model_path = "../../models/video_models/XceptionNet.keras"
+model_path = "../../models/video_models/video_deepfake_model.keras"
 
 model = build_model()
 model.load_weights(model_path)

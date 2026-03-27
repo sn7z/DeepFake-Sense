@@ -8,7 +8,7 @@ from tensorflow.keras.models import load_model
 SAMPLE_RATE = 16000
 N_MFCC = 40
 MAX_LENGTH = 500
-MODEL_PATH = "models/audio_models/my_model.h5"
+MODEL_PATH = "models/audio_models/audio_deepfake_model.h5"
 
 
 # -----------------------------

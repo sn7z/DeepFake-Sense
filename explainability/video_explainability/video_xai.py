@@ -73,7 +73,7 @@ def build_model(lstm_hidden_size=256, num_classes=2, dropout_rate=0.5):
     model = keras.Model(inputs, outputs)
     return model
 
-model_path = "models/video_models/XceptionNet.keras"
+model_path = "models/video_models/video_deepfake_model.keras"
 
 model = build_model()
 model.load_weights(model_path)

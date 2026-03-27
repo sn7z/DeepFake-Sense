@@ -163,6 +163,20 @@ Gemini returns a plain-language forensic summary explaining *why* the media is f
 
 ---
 
+## Team
+
+| Name | Roll number |
+|----------|---------|
+| Syed Numaan | 160922748047 |
+| Mohammed Shameem Sarwar | 160922748002 |
+| Shaik Jamal | 160922748028 |
+
+**Project Guide:** Ms. Naila Fatima, Assistant Professor <br />
+**Branch and Section:** CSM - 4A <br />
+**Institution:** Lords Institute of Engineering and Technology
+
+---
+
 ## Project Structure
 
 ```
@@ -195,12 +209,13 @@ DeepSense/
 │
 ├── models/
 │   ├── image_models/
-│   │   └── xception_deepfake_model.keras
+│   │   └── image_deepfake_model.keras
 │   ├── audio_models/
-│   │   └── my_model.h5
+│   │   └── audio_deepfake_model.h5
 │   └── video_models/
-│       └── XceptionNet.keras
+│       └── video_deepfake_model.keras
 │
+├── testing samples/
 ├── cache/                          # Temporary file storage for uploads
 ├── requirements.txt
 └── README.md
@@ -251,9 +266,9 @@ set GEMINI_API_KEY=your_gemini_api_key_here         # Windows
 Place your pretrained model files in the correct paths:
 
 ```
-models/image_models/xception_deepfake_model.keras
-models/audio_models/my_model.h5
-models/video_models/XceptionNet.keras
+models/image_models/image_deepfake_model.keras
+models/audio_models/audio_deepfake_model.h5
+models/video_models/video_deepfake_model.keras
 ```
 
 ### 6. Run the App

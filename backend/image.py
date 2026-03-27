@@ -7,7 +7,7 @@ from tensorflow.keras.preprocessing.image import load_img, img_to_array
 # CONFIG
 # -----------------------------
 IMAGE_SIZE = (299, 299)
-MODEL_PATH = "models/image_models/xception_deepfake_model.keras"
+MODEL_PATH = "models/image_models/image_deepfake_model.keras"
 THRESHOLD = 0.55
 
 

@@ -212,9 +212,9 @@ training/
 data/
 models/
 models/audio_models
-models/audio_models/my_model.h5
+models/audio_models/audio_deepfake_model.h5
 models/image_models
-models/image_models/xception_deepfake_model.keras
+models/image_models/image_deepfake_model.keras
 models/video_models
-models/video_models/XceptionNet.keras
+models/video_models/video_deepfake_model.keras
 app_improved.py
