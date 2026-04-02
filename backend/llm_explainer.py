@@ -3,9 +3,6 @@ import os
 import time
 import streamlit as st
 import threading
-import io
-
-
 
 # -----------------------------
 # RATE LIMIT SETTINGS
@@ -57,11 +54,14 @@ def explain_with_llm(modality, prediction, confidence, image_paths=None):
     client = genai.Client(api_key=api_key)
 
     # -----------------------------
-    # YOUR EXISTING CODE
+    # INPUT HANDLING
     # -----------------------------
     if image_paths is None:
         image_paths = []
 
+    # -----------------------------
+    # PROMPT
+    # -----------------------------
     prompt = f"""
 You are an AI forensic analyst helping users understand deepfake detection results.
 
@@ -75,15 +75,53 @@ Refer to the visual evidence if available.
 
     contents = []
 
-    for img_bytes in image_paths:
-        uploaded_file = client.files.upload(file=io.BytesIO(img_bytes),mime_type="image/png")
-    contents.append(uploaded_file)
+    # -----------------------------
+    # UPLOAD IMAGE FILES (paths → bytes)
+    # -----------------------------
+    for img_path in image_paths:
+        if not img_path or not os.path.exists(img_path):
+            continue
+        try:
+            # Determine mime type from extension
+            ext = os.path.splitext(img_path)[1].lower()
+            mime_map = {
+                ".png":  "image/png",
+                ".jpg":  "image/jpeg",
+                ".jpeg": "image/jpeg",
+                ".webp": "image/webp",
+            }
+            mime_type = mime_map.get(ext, "image/png")
+
+            with open(img_path, "rb") as f:
+                image_bytes = f.read()
+
+            # Use the upload API correctly — config dict avoids kwarg issues
+            # across different google-genai SDK minor versions
+            uploaded_file = client.files.upload(
+                path=img_path,
+                config={"mime_type": mime_type},
+            )
+            contents.append(uploaded_file)
+        except TypeError:
+            # Fallback for older SDK versions that don't support config=
+            import io
+            from google.genai import types
+            with open(img_path, "rb") as f:
+                image_bytes = f.read()
+            part = types.Part.from_bytes(data=image_bytes, mime_type=mime_type)
+            contents.append(part)
+        except Exception:
+            # Skip unreadable files silently
+            continue
 
     contents.append(prompt)
 
+    # -----------------------------
+    # GEMINI CALL
+    # -----------------------------
     try:
         response = client.models.generate_content(
-            model="gemini-3.1-flash-lite-preview",
+            model="gemini-2.0-flash-lite",
             contents=contents
         )
         return response.text
