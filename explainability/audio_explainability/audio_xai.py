@@ -1,18 +1,28 @@
 import librosa
 import numpy as np
 import plotly.graph_objects as go
-import tempfile
+import plotly.io as pio
 
+
+# -------------------------------
+# Convert Plot → Image Bytes (NO FILES, NO CHROME)
+# -------------------------------
 def save_fig(fig):
-    temp = tempfile.NamedTemporaryFile(suffix=".png", delete=False)
-    fig.write_image(temp.name)
-    return temp.name
+    img_bytes = pio.to_image(fig, format="png")
+    return img_bytes
 
+
+# -------------------------------
+# Load Audio
+# -------------------------------
 def load_audio(audio_path, sr=16000):
     audio, sr = librosa.load(audio_path, sr=sr)
     return audio, sr
 
 
+# -------------------------------
+# Waveform Plot
+# -------------------------------
 def plot_waveform_plotly(audio, sr):
     time_axis = np.linspace(
         0,
@@ -42,7 +52,7 @@ def plot_waveform_plotly(audio, sr):
 
 
 # -------------------------------
-# MFCC – Interactive Heatmap
+# MFCC Heatmap
 # -------------------------------
 def plot_mfcc_plotly(audio, sr, n_mfcc=40):
     mfcc = librosa.feature.mfcc(y=audio, sr=sr, n_mfcc=n_mfcc)
@@ -65,7 +75,7 @@ def plot_mfcc_plotly(audio, sr, n_mfcc=40):
 
 
 # -------------------------------
-# Spectral Centroid – Interactive
+# Spectral Centroid
 # -------------------------------
 def plot_spectral_centroid_plotly(audio, sr):
     spectral_centroid = librosa.feature.spectral_centroid(y=audio, sr=sr)[0]
@@ -90,7 +100,7 @@ def plot_spectral_centroid_plotly(audio, sr):
 
 
 # -------------------------------
-# ZCR – Interactive
+# Zero Crossing Rate
 # -------------------------------
 def plot_zcr_plotly(audio, sr):
     zcr = librosa.feature.zero_crossing_rate(audio)[0]
@@ -114,6 +124,9 @@ def plot_zcr_plotly(audio, sr):
     return fig, zcr
 
 
+# -------------------------------
+# MAIN EXPLAIN FUNCTION
+# -------------------------------
 def explain_audio(audio_path):
     audio, sr = load_audio(audio_path)
 
@@ -122,19 +135,20 @@ def explain_audio(audio_path):
     fig_sc, sc = plot_spectral_centroid_plotly(audio, sr)
     fig_zcr, zcr = plot_zcr_plotly(audio, sr)
 
+    # Convert plots → image bytes (for Gemini)
     mfcc_img = save_fig(fig_mfcc)
     sc_img = save_fig(fig_sc)
     zcr_img = save_fig(fig_zcr)
 
     return {
+        # UI plots (interactive)
         "waveform_fig": fig_waveform,
         "mfcc_fig": fig_mfcc,
         "spectral_centroid_fig": fig_sc,
         "zcr_fig": fig_zcr,
 
-        # images for LLM
+        # Images for LLM (bytes, NOT file paths)
         "mfcc_img": mfcc_img,
         "spectral_img": sc_img,
         "zcr_img": zcr_img
     }
-
