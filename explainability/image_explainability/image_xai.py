@@ -3,10 +3,15 @@ import numpy as np
 import cv2
 import matplotlib.pyplot as plt
 from ..grad_cam import generate_gradcam, overlay_gradcam
+from backend.hf import download_model
+from tensorflow.keras.models import load_model
+import streamlit as st
 
 
+@st.cache_resource
 def load_image_model():
-    return tf.keras.models.load_model("models/image_models/image_deepfake_model.keras")
+    path = download_model("models/image_models/image_deepfake_model.keras")
+    return load_model(path)
 
 model = load_image_model()
 

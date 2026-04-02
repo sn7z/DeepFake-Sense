@@ -4,6 +4,8 @@ from mtcnn import MTCNN
 from tensorflow import keras
 from tensorflow.keras import layers
 from tensorflow.keras.applications.xception import preprocess_input
+import streamlit as st
+from .hf import download_model
 
 # -----------------------------
 # CONFIG
@@ -117,10 +119,21 @@ def build_model(lstm_hidden_size=256, num_classes=2, dropout_rate=0.5):
 
 
 # -----------------------------
-# LOAD MODEL (ONCE)
+# LOAD MODEL (FROM HF)
 # -----------------------------
-video_model = build_model()
-video_model.load_weights(MODEL_PATH)
+@st.cache_resource
+def load_video_model():
+
+    # download weights from Hugging Face
+    weights_path = download_model("models/video_models/video_deepfake_model.keras")
+
+    model = build_model()
+    model.load_weights(weights_path)
+
+    return model
+
+
+video_model = load_video_model()
 
 
 # -----------------------------

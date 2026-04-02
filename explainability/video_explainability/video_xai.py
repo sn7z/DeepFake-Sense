@@ -6,6 +6,9 @@ from tensorflow.keras import layers
 from tensorflow.keras.applications.xception import preprocess_input
 from mtcnn import MTCNN
 from ..grad_cam import generate_gradcam, overlay_gradcam
+from backend.hf import download_model
+from tensorflow.keras.models import load_model
+import streamlit as st
 
 # -----------------------------
 # CONFIG
@@ -73,10 +76,19 @@ def build_model(lstm_hidden_size=256, num_classes=2, dropout_rate=0.5):
     model = keras.Model(inputs, outputs)
     return model
 
-model_path = "models/video_models/video_deepfake_model.keras"
+@st.cache_resource
+def load_video_model():
 
-model = build_model()
-model.load_weights(model_path)
+    # download weights from Hugging Face
+    weights_path = download_model("models/video_models/video_deepfake_model.keras")
+
+    model = build_model()
+    model.load_weights(weights_path)
+
+    return model
+
+
+video_model = load_video_model()
 
 
 # -----------------------------

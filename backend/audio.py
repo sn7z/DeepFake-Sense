@@ -1,6 +1,8 @@
 import numpy as np
 import librosa
 from tensorflow.keras.models import load_model
+import streamlit as st
+from .hf import download_model
 
 # -----------------------------
 # CONFIG
@@ -14,7 +16,14 @@ MODEL_PATH = "models/audio_models/audio_deepfake_model.h5"
 # -----------------------------
 # LOAD MODEL (ONCE)
 # -----------------------------
-audio_model = load_model(MODEL_PATH)
+
+
+@st.cache_resource
+def load_audio_model():
+    path = download_model("models/audio_models/audio_deepfake_model.h5")
+    return load_model(path)
+
+audio_model = load_audio_model()
 
 
 # -----------------------------

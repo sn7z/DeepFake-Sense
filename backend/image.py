@@ -2,6 +2,9 @@ import os
 import numpy as np
 from tensorflow.keras.models import load_model
 from tensorflow.keras.preprocessing.image import load_img, img_to_array
+import streamlit as st
+from .hf import download_model
+
 
 # -----------------------------
 # CONFIG
@@ -14,10 +17,17 @@ THRESHOLD = 0.55
 # -----------------------------
 # LOAD MODEL (ONCE)
 # -----------------------------
-if not os.path.exists(MODEL_PATH):
-    raise FileNotFoundError(f"Model file not found at {MODEL_PATH}")
+# if not os.path.exists(MODEL_PATH):
+#     raise FileNotFoundError(f"Model file not found at {MODEL_PATH}")
 
-image_model = load_model(MODEL_PATH, compile=False)
+
+
+@st.cache_resource
+def load_image_model():
+    path = download_model("models/image_models/image_deepfake_model.keras")
+    return load_model(path)
+
+image_model = load_image_model()
 
 
 # -----------------------------
