@@ -88,7 +88,7 @@ def load_video_model():
     return model
 
 
-video_model = load_video_model()
+model = load_video_model()
 
 
 # -----------------------------
