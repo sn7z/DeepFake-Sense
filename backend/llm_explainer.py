@@ -121,7 +121,7 @@ Refer to the visual evidence if available.
     # -----------------------------
     try:
         response = client.models.generate_content(
-            model="gemini-2.0-flash-lite",
+            model="gemini-3.1-flash-lite-preview",
             contents=contents
         )
         return response.text
