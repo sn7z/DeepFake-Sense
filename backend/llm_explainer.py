@@ -76,9 +76,7 @@ Refer to the visual evidence if available.
     contents = []
 
     for img_bytes in image_paths:
-        uploaded_file = client.files.upload(
-            file=io.BytesIO(img_bytes)
-        )
+        uploaded_file = client.files.upload(file=io.BytesIO(img_bytes),mime_type="image/png")
     contents.append(uploaded_file)
 
     contents.append(prompt)
